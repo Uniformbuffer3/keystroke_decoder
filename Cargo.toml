@@ -9,3 +9,6 @@ edition = "2018"
 [dependencies]
 xkbcommon = "0.4.0"
 regex = "1.4.5"
+
+[dev-dependencies]
+input_gatherer = {version = "*", git = "https://github.com/Uniformbuffer3/input_gatherer", branch = "main"}
