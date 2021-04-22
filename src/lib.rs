@@ -121,3 +121,8 @@ impl Default for KeystrokeDecoder {
         Self::new()
     }
 }
+
+#[test]
+fn test_automatic_layout_detection() {
+    println!("{}", KeystrokeDecoder::detect_keyboard_layout().expect("Failed to autodetect keyboard layout"));
+}
