@@ -5,13 +5,13 @@ pub use xkb::keysyms;
 This structure initialize the xkb components to decode key strokes to an abstract xkb representation,
 making possible to handle multiple keyboards layouts.
 */
-pub struct KeyboardDecoder {
+pub struct KeystrokeDecoder {
     context: xkb::Context,
     keymap: xkb::Keymap,
     state: xkb::State,
     keystroke_stack: Vec<xkb::Keysym>
 }
-impl KeyboardDecoder {
+impl KeystrokeDecoder {
     fn detect_keyboard_layout_from_env() -> Result<String, ()> {
         for (var, value) in std::env::vars() {
             if var == "XKB_DEFAULT_LAYOUT" {
@@ -116,7 +116,7 @@ impl KeyboardDecoder {
     pub fn is_num_lock_pressed(&self)->bool {self.state.mod_name_is_active(&xkb::MOD_NAME_CTRL, xkb::STATE_MODS_EFFECTIVE)}
 }
 
-impl Default for KeyboardDecoder {
+impl Default for KeystrokeDecoder {
     fn default() -> Self {
         Self::new()
     }
