@@ -101,40 +101,7 @@ impl KeystrokeDecoder {
             direction
         }
     }
-    /*
-    /// This function will decode the key into an abstract xkb representation (Keysym).
-    /// The keycode will be increased by 8 because the evdev XKB rules reflect X's
-    /// broken keycode system, which starts at 8
-    pub fn decode_as_keysym(&mut self, keycode: u32) -> Vec<(xkb::Keysym,KeyDirection)> {
 
-        self.state.key_get_syms(keycode + 8).into_iter().map(|key|(*key,direction.clone())).collect()
-    }
-    pub fn decode_as_chars(&mut self, keycode: u32) -> Vec<char> {
-        let direction = match self.keystroke_stack.iter().rposition(|element|element==&keycode) {
-            Some(index)=>{
-                self.keystroke_stack.remove(index);
-                KeyDirection::Up
-            }
-            None=>{
-                self.keystroke_stack.push(keycode);
-                KeyDirection::Down
-            }
-        };
-
-        self.state.update_key(keycode + 8, direction.into());
-
-        //This has to be done in any case, otherwise pushed buttons will not be consumed completely
-        let chars: Vec<char> = self.state.key_get_utf8(keycode + 8).chars().collect();
-        match direction
-        {
-            KeyDirection::Up => {return Vec::new();}
-            KeyDirection::Down => {
-                if self.is_shift_pressed() {chars.into_iter().map(|character|character.to_uppercase().into_iter().collect::<Vec<char>>()).flatten().collect()}
-                else {chars}
-            }
-        }
-    }
-    */
     pub fn is_ctrl_pressed(&self)->bool {self.state.mod_name_is_active(&xkb::MOD_NAME_CTRL, xkb::STATE_MODS_EFFECTIVE)}
     pub fn is_alt_pressed(&self)->bool {self.state.mod_name_is_active(&xkb::MOD_NAME_CTRL, xkb::STATE_MODS_EFFECTIVE)}
     pub fn is_shift_pressed(&self)->bool {self.state.mod_name_is_active(&xkb::MOD_NAME_CTRL, xkb::STATE_MODS_EFFECTIVE)}
